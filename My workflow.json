@@ -1,0 +1,130 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "129549b9-4c25-49f9-bfa2-39bf5120de73",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "chatId": "=5256798059",
+        "text": "={{ $json.output }}\n\n---\nthis message was sent automatically with n8n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "7f8ffe82-edf1-4fa9-9c23-253b65765e87",
+      "name": "Send a text message",
+      "webhookId": "eddedaa4-8f7e-4ebe-98fd-32b640cb5eec",
+      "credentials": {
+        "telegramApi": {
+          "id": "r2V1uUM9goI7VJNy",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama-3.1-8b-instant",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        192,
+        224
+      ],
+      "id": "86c3db5a-1d3e-47a9-9677-9e1da9f1a211",
+      "name": "Groq Chat Model",
+      "notesInFlow": false,
+      "credentials": {
+        "groqApi": {
+          "id": "yQ6oKK0XwKtmnBkZ",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are an expert LinkedIn content creator focused on Artificial Intelligence, AI tools, and learning AI skills.\n\nYour task is to generate ONE completely unique LinkedIn post and perfect format line by line with spaces each time this prompt is used simple grammer.\n\nSTRICT RULES (VERY IMPORTANT):\n- NEVER repeat ideas, examples, hooks, or structure from previous outputs\n- Each post must feel fresh, original, and different\n- Rotate between topics: AI tools, real-world use cases, learning AI, productivity with AI, future of jobs, prompts, automation, beginner tips\n\nCONTENT REQUIREMENTS:\n- Start with a powerful hook (1 short line, attention-grabbing)\n- Keep total length between 80–150 words\n- Use very simple English (easy to understand for beginners)\n- Write like a real human (natural, conversational tone)\n- Avoid technical jargon\n- Use short paragraphs (1–2 lines each)\n- Include one useful insight, tip, or learning\n- Make it practical and relatable\n\nSTYLE VARIATION (IMPORTANT):\n- Sometimes use storytelling\n- Sometimes use a tip or list\n- Sometimes use a bold opinion\n- Sometimes use a question-led format\n\nENGAGEMENT:\n- End with a simple question to encourage comments\n\nHASHTAGS:\n- Add 3–5 relevant hashtags (different each time)\n\nRESTRICTIONS:\n- Do NOT repeat phrases like \"AI is the future\" again and again\n- Do NOT use robotic tone\n- Maximum 1 emoji (optional)\n- No titles, no explanations\n\nFINAL OUTPUT:\nOnly return the LinkedIn post.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "eebf266d-d9d7-41e6-aa26-23dd03df106a",
+      "name": "AI Agent"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "c4966917-1a58-41b9-9fcf-601218d24e5a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "44d255eb1a1d233143811459b757d68e31a3ffb8ac8910f9c93dbd82ab339d0a"
+  },
+  "id": "H0apTIMhp2xDWRSP",
+  "tags": []
+}
