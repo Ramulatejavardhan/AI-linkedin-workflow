@@ -24,4 +24,4 @@ This project is useful for:
 - Automating daily content creation  
 
 ## 🚀 Outcome
-This workflow reduces the time spent on content creation and helps you stay consistent with high-quality LinkedIn posts.
+This workflow reduces the time spent on content creation and helps you stay consistent with high-quality LinkedIn posts daily.
